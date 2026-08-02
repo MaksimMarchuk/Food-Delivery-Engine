@@ -83,3 +83,24 @@ while (true) {
     break;
   }
 }
+
+// Пошук товарів за частковим збігом у назві (без урахування регістру).
+
+var searchprod = prompt("Яку страву бажаєте?");
+
+function productSearch(product, searchprod){
+    return product.filter(
+        product => product.name.toLowerCase().includes(searchprod.toLowerCase())
+    )
+};
+
+if(searchprod = product){
+    alert(productSearch(product, searchprod))
+} else {
+    alert("Нажаль такої страви немає")
+}
+
+// alert(productSearch(product, searchprod))
+
+
+// Сортування каталогу за ціною та рейтингом.
