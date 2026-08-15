@@ -56,6 +56,7 @@ var product = [
     rating: "4.3",
   },
 ];
+var cart = []
 
 while (true) {
   var mainPromt = prompt(
@@ -79,6 +80,47 @@ while (true) {
     alert(formattedText);
   }
 
+  if (mainPromt === "3"){
+    while(true){
+      var addElementToCart = prompt("Ведіть назву страви яку бажаєте додати до кошику:")
+
+      if (addElementToCart === null) {
+    break;
+  }
+
+  const cleanedInput = addElementToCart.trim();
+
+  const foundProduct = product.find(({ name }) => 
+    name.toLowerCase() === cleanedInput.toLowerCase()
+  );
+
+  if (foundProduct) {
+    cart.push({
+      name: foundProduct.name,
+      price: foundProduct.price
+    });
+    
+    alert(`Страва "${foundProduct.name}" за ціною ${foundProduct.price} грн додана до кошика!`);
+  } else {
+    alert("Помилка, такої страви не існує. Спробуйте ще раз.");
+  }
+    }
+  }
+
+  if(mainPromt === "4"){
+    if (cart.length === 0) {
+  alert("Ваш кошик порожній.");
+} else {
+  const cartList = cart.map((item, index) => `${index + 1}. ${item.name} — ${item.price} грн`).join("\n");
+
+  const totalPrice = cart.reduce((sum, item) => {
+    const priceAsNumber = parseFloat(item.price) || 0; 
+    return sum + priceAsNumber;
+  }, 0);
+
+  alert(`Ваше замовлення:\n\n${cartList}\n\nЗагальна сума: ${totalPrice} грн`);
+}
+  }
   if (mainPromt === "2") {
     const searchprod = prompt("Яку страву бажаєте?");
 
@@ -117,6 +159,17 @@ while (true) {
 
 // var searchprod = prompt("Яку страву бажаєте?");
 
+function productSearch(product, searchprod) {
+  return product.filter((product) =>
+    product.name.toLowerCase().includes(searchprod.toLowerCase()),
+  );
+}
+
+if ((searchprod = product)) {
+  alert(productSearch(product, searchprod));
+} else {
+  alert("Нажаль такої страви немає");
+}
 // function productSearch(product, searchprod) {
 //   return product.filter(
 //     product => product.name.toLowerCase().includes(searchprod.toLowerCase())
@@ -129,7 +182,7 @@ while (true) {
 //   alert("Нажаль такої страви немає")
 // }
 
-// alert(productSearch(product, searchprod))
 
+// alert(productSearch(product, searchprod))
 
 // Сортування каталогу за ціною та рейтингом.
