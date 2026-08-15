@@ -121,6 +121,32 @@ while (true) {
   alert(`Ваше замовлення:\n\n${cartList}\n\nЗагальна сума: ${totalPrice} грн`);
 }
   }
+  if (mainPromt === "2") {
+    const searchprod = prompt("Яку страву бажаєте?");
+
+    function productSearch(product, searchprod) {
+      return product.filter(
+        product => product.name.toLowerCase().includes(searchprod.toLowerCase())
+      )
+    };
+
+    const searchResult = productsSearch();
+
+    console.log(searchResult)
+
+    const formattedTextSearch = searchResult
+      .map(
+        (item) => `${item.name} — ${item.price} грн (Оцінка: ${item.rating})`,
+      )
+      .join("\n");
+
+    if (searchResult == product) {
+      alert(formattedTextSearch)
+    } else {
+      alert("Нажаль такої страви немає")
+    }
+  }
+
 
   if (mainPromt === "0") {
     break;
@@ -129,7 +155,7 @@ while (true) {
 
 // Пошук товарів за частковим збігом у назві (без урахування регістру).
 
-var searchprod = prompt("Яку страву бажаєте?");
+// var searchprod = prompt("Яку страву бажаєте?");
 
 function productSearch(product, searchprod) {
   return product.filter((product) =>
@@ -142,6 +168,18 @@ if ((searchprod = product)) {
 } else {
   alert("Нажаль такої страви немає");
 }
+// function productSearch(product, searchprod) {
+//   return product.filter(
+//     product => product.name.toLowerCase().includes(searchprod.toLowerCase())
+//   )
+// };
+
+// if (searchprod = product) {
+//   alert(productSearch(product, searchprod))
+// } else {
+//   alert("Нажаль такої страви немає")
+// }
+
 
 // alert(productSearch(product, searchprod))
 
