@@ -59,7 +59,7 @@ var product = [
 
 while (true) {
   var mainPromt = prompt(
-    "1 - Переглянути меню \n 2 - Пошук страви за назвою \n 3 - Додати страву в кошик \n 4 - Переглянути кошик та чек \n 5 - Застосувати промокд \n 6 - Оформити замовлення \n 0 - Вийти",
+    "1 - Переглянути меню \n 2 - Пошук страви за назвою \n 3 - Додати страву в кошик \n 4 - Переглянути кошик та чек \n 5 - Застосувати промокод \n 6 - Оформити замовлення \n 0 - Вийти",
   );
 
   if (mainPromt === "1") {
@@ -82,15 +82,17 @@ while (true) {
   if (mainPromt === "2") {
     const searchprod = prompt("Яку страву бажаєте?");
 
-    function productSearch(product, searchprod) {
-      return product.filter(
-        product => product.name.toLowerCase().includes(searchprod.toLowerCase())
-      )
-    };
+    if (searchprod) {
+      const productSearch = function (products, searchprod) {
+        return products.filter(
+          item => item.name.toLowerCase().includes(searchprod.toLowerCase())
+        );
+      };
+    }
 
-    const searchResult = productsSearch();
+    const searchResult = productSearch(product, searchprod);
 
-    console.log(searchResult)
+    console.log(searchResult);
 
     const formattedTextSearch = searchResult
       .map(
@@ -98,10 +100,10 @@ while (true) {
       )
       .join("\n");
 
-    if (searchResult == product) {
-      alert(formattedTextSearch)
+    if (searchResult.length > 0) {
+      alert(formattedTextSearch);
     } else {
-      alert("Нажаль такої страви немає")
+      alert("На жаль, такої страви немає");
     }
   }
 
