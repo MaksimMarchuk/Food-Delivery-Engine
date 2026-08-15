@@ -80,7 +80,7 @@ while (true) {
   }
 
   if (mainPromt === "2") {
-    var searchprod = prompt("Яку страву бажаєте?");
+    const searchprod = prompt("Яку страву бажаєте?");
 
     function productSearch(product, searchprod) {
       return product.filter(
@@ -88,15 +88,17 @@ while (true) {
       )
     };
 
-    var searchResult = productsSearch(product, searchprod);
+    const searchResult = productsSearch();
 
-    var formattedTextSearch = searchResult
+    console.log(searchResult)
+
+    const formattedTextSearch = searchResult
       .map(
         (item) => `${item.name} — ${item.price} грн (Оцінка: ${item.rating})`,
       )
       .join("\n");
 
-    if (searchResult.length > 0) {
+    if (searchResult == product) {
       alert(formattedTextSearch)
     } else {
       alert("Нажаль такої страви немає")
