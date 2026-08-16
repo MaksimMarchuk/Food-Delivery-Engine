@@ -61,15 +61,15 @@ var cart = []
 var promocode = [
   {
     name: "QWERTY",
-    discount: (20 / 100),
+    discount: 20 / 100,
   },
   {
     name: "CATOWL",
-    discount: (50 / 100),
+    discount: 50 / 100,
   },
   {
     name: "ADOLF",
-    discount: (88 / 100),
+    discount: 88 / 100,
   }
 ]
 
@@ -98,13 +98,11 @@ while (true) {
   if (mainPromt === "2") {
     const searchprod = prompt("Яку страву бажаєте?");
 
-    if (searchprod) {
-      const productSearch = function (products, searchprod) {
-        return products.filter(
-          item => item.name.toLowerCase().includes(searchprod.toLowerCase())
-        );
-      };
-    }
+    const productSearch = function (products, searchprod) {
+      return products.filter(
+        item => item.name.toLowerCase().includes(searchprod.toLowerCase())
+      );
+    };
 
     const searchResult = productSearch(product, searchprod);
 
@@ -166,13 +164,11 @@ while (true) {
   if (mainPromt === "5") {
     const promoSearch = prompt("Введіть промокод: (Наприклад: QWERTY або CATOWL)")
 
-    if (promoSearch) {
-      const promocodeSearch = function (promocode, promoSearch) {
-        return promocode.filter(
-          item => item.name.toLowerCase().includes(promoSearch.toLowerCase())
-        );
-      };
-    }
+    const promocodeSearch = function (promocode, promoSearch) {
+      return promocode.filter(
+        item => item.name.toLowerCase().includes(promoSearch.toLowerCase())
+      );
+    };
 
     const promoResult = promocodeSearch(promocode, promoSearch);
 
@@ -180,12 +176,14 @@ while (true) {
       .map(item => item.name)
       .join("\n");
 
-      if (promoResult.length > 0) {
+    if (promoResult.length > 0) {
       alert(`Промокод ${formattedpromoSearch} успішно активовано`);
     } else {
       alert("На жаль проомокод не дійсний");
     }
 
+    var promoTotalprice = totalPrice * (promoResult.discount)
+    console.log(promoTotalprice)
   }
 
 
