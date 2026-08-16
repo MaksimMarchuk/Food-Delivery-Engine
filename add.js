@@ -58,6 +58,21 @@ var product = [
 ];
 var cart = []
 
+var promocode = [
+  {
+    name: "QWERTY",
+    discount: (20 / 100),
+  },
+  {
+    name: "CATOWL",
+    discount: (50 / 100),
+  },
+  {
+    name: "ADOLF",
+    discount: (88 / 100),
+  }
+]
+
 while (true) {
   var mainPromt = prompt(
     "1 - Переглянути меню \n 2 - Пошук страви за назвою \n 3 - Додати страву в кошик \n 4 - Переглянути кошик та чек \n 5 - Застосувати промокод \n 6 - Оформити замовлення \n 0 - Вийти",
@@ -80,47 +95,6 @@ while (true) {
     alert(formattedText);
   }
 
-  if (mainPromt === "3"){
-    while(true){
-      var addElementToCart = prompt("Ведіть назву страви яку бажаєте додати до кошику:")
-
-      if (addElementToCart === null) {
-    break;
-  }
-
-  const cleanedInput = addElementToCart.trim();
-
-  const foundProduct = product.find(({ name }) => 
-    name.toLowerCase() === cleanedInput.toLowerCase()
-  );
-
-  if (foundProduct) {
-    cart.push({
-      name: foundProduct.name,
-      price: foundProduct.price
-    });
-    
-    alert(`Страва "${foundProduct.name}" за ціною ${foundProduct.price} грн додана до кошика!`);
-  } else {
-    alert("Помилка, такої страви не існує. Спробуйте ще раз.");
-  }
-    }
-  }
-
-  if(mainPromt === "4"){
-    if (cart.length === 0) {
-  alert("Ваш кошик порожній.");
-} else {
-  const cartList = cart.map((item, index) => `${index + 1}. ${item.name} — ${item.price} грн`).join("\n");
-
-  const totalPrice = cart.reduce((sum, item) => {
-    const priceAsNumber = parseFloat(item.price) || 0; 
-    return sum + priceAsNumber;
-  }, 0);
-
-  alert(`Ваше замовлення:\n\n${cartList}\n\nЗагальна сума: ${totalPrice} грн`);
-}
-  }
   if (mainPromt === "2") {
     const searchprod = prompt("Яку страву бажаєте?");
 
@@ -133,8 +107,6 @@ while (true) {
     }
 
     const searchResult = productSearch(product, searchprod);
-
-    console.log(searchResult);
 
     const formattedTextSearch = searchResult
       .map(
@@ -149,6 +121,73 @@ while (true) {
     }
   }
 
+  if (mainPromt === "3") {
+    while (true) {
+      var addElementToCart = prompt("Ведіть назву страви яку бажаєте додати до кошику:")
+
+      if (addElementToCart === null) {
+        break;
+      }
+
+      const cleanedInput = addElementToCart.trim();
+
+      const foundProduct = product.find(({ name }) =>
+        name.toLowerCase() === cleanedInput.toLowerCase()
+      );
+
+      if (foundProduct) {
+        cart.push({
+          name: foundProduct.name,
+          price: foundProduct.price
+        });
+
+        alert(`Страва "${foundProduct.name}" за ціною ${foundProduct.price} грн додана до кошика!`);
+      } else {
+        alert("Помилка, такої страви не існує. Спробуйте ще раз.");
+      }
+    }
+  }
+
+  if (mainPromt === "4") {
+    if (cart.length === 0) {
+      alert("Ваш кошик порожній.");
+    } else {
+      const cartList = cart.map((item, index) => `${index + 1}. ${item.name} — ${item.price} грн`).join("\n");
+
+      const totalPrice = cart.reduce((sum, item) => {
+        const priceAsNumber = parseFloat(item.price) || 0;
+        return sum + priceAsNumber;
+      }, 0);
+
+      alert(`Ваше замовлення:\n\n${cartList}\n\nЗагальна сума: ${totalPrice} грн`);
+    }
+  }
+
+  if (mainPromt === "5") {
+    const promoSearch = prompt("Введіть промокод: (Наприклад: QWERTY або CATOWL)")
+
+    if (promoSearch) {
+      const promocodeSearch = function (promocode, promoSearch) {
+        return promocode.filter(
+          item => item.name.toLowerCase().includes(promoSearch.toLowerCase())
+        );
+      };
+    }
+
+    const promoResult = promocodeSearch(promocode, promoSearch);
+
+    const formattedpromoSearch = promoResult
+      .map(item => item.name)
+      .join("\n");
+
+      if (promoResult.length > 0) {
+      alert(`Промокод ${formattedpromoSearch} успішно активовано`);
+    } else {
+      alert("На жаль проомокод не дійсний");
+    }
+
+  }
+
 
   if (mainPromt === "0") {
     break;
@@ -157,32 +196,6 @@ while (true) {
 
 // Пошук товарів за частковим збігом у назві (без урахування регістру).
 
-// var searchprod = prompt("Яку страву бажаєте?");
 
-function productSearch(product, searchprod) {
-  return product.filter((product) =>
-    product.name.toLowerCase().includes(searchprod.toLowerCase()),
-  );
-}
-
-if ((searchprod = product)) {
-  alert(productSearch(product, searchprod));
-} else {
-  alert("Нажаль такої страви немає");
-}
-// function productSearch(product, searchprod) {
-//   return product.filter(
-//     product => product.name.toLowerCase().includes(searchprod.toLowerCase())
-//   )
-// };
-
-// if (searchprod = product) {
-//   alert(productSearch(product, searchprod))
-// } else {
-//   alert("Нажаль такої страви немає")
-// }
-
-
-// alert(productSearch(product, searchprod))
 
 // Сортування каталогу за ціною та рейтингом.
