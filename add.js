@@ -169,9 +169,9 @@ while (true) {
 
 
   if (mainPromt === "5") {
-    const promoSearch = prompt("Введіть промокод: (Наприклад: QWERTY або CATOWL)")
+    var promoSearch = prompt("Введіть промокод: (Наприклад: QWERTY або CATOWL)")
 
-    const promocodeSearch = function (promocode, promoSearch) {
+    var promocodeSearch = function (promocode, promoSearch) {
       return promocode.filter(
         item => item.name.toLowerCase().includes(
           promoSearch.toLowerCase()
@@ -181,14 +181,14 @@ while (true) {
 
   const promoResult = promocodeSearch(promocode, promoSearch);
 
-  const formattedpromoSearch = promoResult
+  var formattedpromoSearch = promoResult
     .map(item => item.name)
     .join("\n");
 
   if (promoResult.length > 0) {
     promoTotalprice =  totalPrice * (1 - promoResult[0].discount);
 
-    alert(`Промокод ${promoResult.name} успішно активовано`);
+    alert(`Промокод ${promoResult[0].name} успішно активовано`);
   } else {
     alert("На жаль, промокод недійсний");
   }
