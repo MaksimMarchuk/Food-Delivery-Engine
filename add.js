@@ -161,11 +161,13 @@ while (true) {
     }
   }
 
+
+
   if (mainPromt === "5") {
     const promoSearch = prompt("Введіть промокод: (Наприклад: QWERTY або CATOWL)")
 
     const promocodeSearch = function (promocode, promoSearch) {
-      return promocode.filter(
+      return promocode.find(
         item => item.name.toLowerCase().includes(promoSearch.toLowerCase())
       );
     };
@@ -184,6 +186,24 @@ while (true) {
 
     var promoTotalprice = totalPrice * (promoResult.discount)
     console.log(promoTotalprice)
+  }
+
+  
+
+  if (mainPromt === "6"){
+    var customerName = prompt("Введіть ваше ім'я:");
+    
+    var customerNumber = Number(prompt("Введіть ваш номер телефону:"));
+    while(isNaN(customerNumber)){
+      customerNumber = Number(prompt("Використовуйте лише цифри"))
+    }
+
+    if (promoResult){
+      alert(`Дякуємо ${customerName}, ваше замовлення успішно оформлено!\n Сума до сплати: ${promoTotalprice} грн\n\n Статус: замовлення прийнято та чекає підвердження`)
+    } else {
+      alert(`Дякуємо ${customerName}, ваше замовлення успішно оформлено!\n Сума до сплати: ${totalPrice} грн\n\n Статус: замовлення прийнято та чекає підвердження`)
+    }
+   
   }
 
 
