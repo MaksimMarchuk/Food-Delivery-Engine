@@ -57,8 +57,9 @@ var product = [
   },
 ];
 var cart = []
-var promoResult = null;
-var promoTotalprice = totalPrice;
+let totalPrice = 0;
+let promoResult = [];
+let promoTotalprice = 0;
 
 var promocode = [
   {
@@ -171,53 +172,50 @@ while (true) {
     const promoSearch = prompt("Введіть промокод: (Наприклад: QWERTY або CATOWL)")
 
     const promocodeSearch = function (promocode, promoSearch) {
-      return promocode.find(
-        item => item.name.toLowerCase().includes(promoSearch.toLowerCase())
-      );
-    };
+      return promocode.filter(
+        item => item.name.toLowerCase().includes(
+          promoSearch.toLowerCase()
+        )
+    )
+  };
 
-    const promoResult = promocodeSearch(promocode, promoSearch);
+  const promoResult = promocodeSearch(promocode, promoSearch);
 
-    const formattedpromoSearch = promoResult
-      .map(item => item.name)
-      .join("\n");
+  const formattedpromoSearch = promoResult
+    .map(item => item.name)
+    .join("\n");
 
-    if (promoResult) {
-      promoTotalprice = totalPrice * (1 - promoResult.discount);
+  if (promoResult.length > 0) {
+    promoTotalprice =  totalPrice * (1 - promoResult[0].discount);
 
-      alert(`Промокод ${promoResult.name} успішно активовано`);
-    } else {
-      alert("На жаль, промокод недійсний");
-    }
-
+    alert(`Промокод ${promoResult.name} успішно активовано`);
+  } else {
+    alert("На жаль, промокод недійсний");
   }
 
-
-
-  if (mainPromt === "6") {
-    var customerName = prompt("Введіть ваше ім'я:");
-
-    var customerNumber = prompt("Введіть ваш номер телефону:");
-    while (isNaN(customerNumber)) {
-      customerNumber = prompt("Використовуйте лише цифри");
-    }
-
-    if (promoResult) {
-      alert(`Дякуємо ${customerName}, ваше замовлення успішно оформлено!\n Сума до сплати: ${promoTotalprice} грн\n\n Статус: замовлення прийнято та чекає підвердження`)
-    } else {
-      alert(`Дякуємо ${customerName}, ваше замовлення успішно оформлено!\n Сума до сплати: ${totalPrice} грн\n\n Статус: замовлення прийнято та чекає підвердження`)
-    }
-
-  }
-
-
-  if (mainPromt === "0") {
-    break;
-  }
 }
 
-// Пошук товарів за частковим збігом у назві (без урахування регістру).
 
 
+if (mainPromt === "6") {
+  var customerName = prompt("Введіть ваше ім'я:");
 
-// Сортування каталогу за ціною та рейтингом.
+  var customerNumber = prompt("Введіть ваш номер телефону:");
+  while (isNaN(customerNumber)) {
+    customerNumber = prompt("Використовуйте лише цифри");
+  }
+
+  if (promoResult.length > 0) {
+    alert(`Дякуємо ${customerName}, ваше замовлення успішно оформлено!\n Сума до сплати: ${promoTotalprice} грн\n\n Статус: замовлення прийнято та чекає підвердження`)
+  } else {
+    alert(`Дякуємо ${customerName}, ваше замовлення успішно оформлено!\n Сума до сплати: ${totalPrice} грн\n\n Статус: замовлення прийнято та чекає підвердження`)
+  }
+
+}
+
+
+if (mainPromt === "0") {
+  break;
+}
+}
+
