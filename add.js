@@ -57,6 +57,8 @@ var product = [
   },
 ];
 var cart = []
+var promoResult = null;
+var promoTotalprice = totalPrice;
 
 var promocode = [
   {
@@ -72,6 +74,8 @@ var promocode = [
     discount: 88 / 100,
   }
 ]
+
+
 
 while (true) {
   var mainPromt = prompt(
@@ -178,32 +182,32 @@ while (true) {
       .map(item => item.name)
       .join("\n");
 
-    if (promoResult.length > 0) {
-      alert(`Промокод ${formattedpromoSearch} успішно активовано`);
+    if (promoResult) {
+      promoTotalprice = totalPrice * (1 - promoResult.discount);
+
+      alert(`Промокод ${promoResult.name} успішно активовано`);
     } else {
-      alert("На жаль проомокод не дійсний");
+      alert("На жаль, промокод недійсний");
     }
 
-    var promoTotalprice = totalPrice * (promoResult.discount)
-    console.log(promoTotalprice)
   }
 
-  
 
-  if (mainPromt === "6"){
+
+  if (mainPromt === "6") {
     var customerName = prompt("Введіть ваше ім'я:");
-    
-    var customerNumber = Number(prompt("Введіть ваш номер телефону:"));
-    while(isNaN(customerNumber)){
-      customerNumber = Number(prompt("Використовуйте лише цифри"))
+
+    var customerNumber = prompt("Введіть ваш номер телефону:");
+    while (isNaN(customerNumber)) {
+      customerNumber = prompt("Використовуйте лише цифри");
     }
 
-    if (promoResult){
+    if (promoResult) {
       alert(`Дякуємо ${customerName}, ваше замовлення успішно оформлено!\n Сума до сплати: ${promoTotalprice} грн\n\n Статус: замовлення прийнято та чекає підвердження`)
     } else {
       alert(`Дякуємо ${customerName}, ваше замовлення успішно оформлено!\n Сума до сплати: ${totalPrice} грн\n\n Статус: замовлення прийнято та чекає підвердження`)
     }
-   
+
   }
 
 
