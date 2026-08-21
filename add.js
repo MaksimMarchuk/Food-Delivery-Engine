@@ -163,60 +163,61 @@ while (true) {
       }, 0);
 
       alert(`Ваше замовлення:\n\n${cartList}\n\nЗагальна сума: ${totalPrice} грн`);
-      
+
     }
   }
 
 
 
   if (mainPromt === "5") {
+    totalPrice = cart.reduce((sum, item) => {
+      return sum + parseFloat(item.price);
+    }, 0)
+
     var promoSearch = prompt("Введіть промокод: (Наприклад: QWERTY або CATOWL)")
 
     var promocodeSearch = function (promocode, promoSearch) {
       return promocode.filter(
-        item => item.name.toLowerCase().includes(
-          promoSearch.toLowerCase()
-        )
-    )
-  };
+        item =>
+          item.name.toLowerCase() === promoSearch.toLowerCase()
+      )
+    };
 
-  const promoResult = promocodeSearch(promocode, promoSearch);
+    promoResult = promocodeSearch(promocode, promoSearch);
 
-  var formattedpromoSearch = promoResult
-    .map(item => item.name)
-    .join("\n");
+    if (promoResult.length > 0) {
+      promoTotalprice =
+      totalPrice * (1 - promoResult[0].discount)
+      promoTotalprice = totalPrice * (1 - promoResult[0].discount);
 
-  if (promoResult.length > 0) {
-    promoTotalprice =  totalPrice * (1 - promoResult[0].discount);
+      alert(`Промокод ${promoResult[0].name} успішно активовано`);
+    } else {
+      alert("На жаль, промокод недійсний");
+    }
 
-    alert(`Промокод ${promoResult[0].name} успішно активовано`);
-  } else {
-    alert("На жаль, промокод недійсний");
   }
 
-}
 
 
+  if (mainPromt === "6") {
+    var customerName = prompt("Введіть ваше ім'я:");
 
-if (mainPromt === "6") {
-  var customerName = prompt("Введіть ваше ім'я:");
+    var customerNumber = prompt("Введіть ваш номер телефону:");
+    while (isNaN(customerNumber)) {
+      customerNumber = prompt("Використовуйте лише цифри");
+    }
 
-  var customerNumber = prompt("Введіть ваш номер телефону:");
-  while (isNaN(customerNumber)) {
-    customerNumber = prompt("Використовуйте лише цифри");
+    if (promoResult.length > 0) {
+      alert(`Дякуємо ${customerName}, ваше замовлення успішно оформлено!\n Сума до сплати: ${promoTotalprice} грн\n\n Статус: замовлення прийнято та чекає підвердження`)
+    } else {
+      alert(`Дякуємо ${customerName}, ваше замовлення успішно оформлено!\n Сума до сплати: ${totalPrice} грн\n\n Статус: замовлення прийнято та чекає підвердження`)
+    }
+
   }
 
-  if (promoResult.length > 0) {
-    alert(`Дякуємо ${customerName}, ваше замовлення успішно оформлено!\n Сума до сплати: ${totalPrice} грн\n\n Статус: замовлення прийнято та чекає підвердження`)
-  } else {
-    alert(`Дякуємо ${customerName}, ваше замовлення успішно оформлено!\n Сума до сплати: ${totalPrice} грн\n\n Статус: замовлення прийнято та чекає підвердження`)
+
+  if (mainPromt === "0") {
+    break;
   }
-
-}
-
-
-if (mainPromt === "0") {
-  break;
-}
 }
 
