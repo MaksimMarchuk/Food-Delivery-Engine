@@ -157,12 +157,13 @@ while (true) {
     } else {
       const cartList = cart.map((item, index) => `${index + 1}. ${item.name} — ${item.price} грн`).join("\n");
 
-      const totalPrice = cart.reduce((sum, item) => {
+      totalPrice = cart.reduce((sum, item) => {
         const priceAsNumber = parseFloat(item.price) || 0;
         return sum + priceAsNumber;
       }, 0);
 
       alert(`Ваше замовлення:\n\n${cartList}\n\nЗагальна сума: ${totalPrice} грн`);
+      
     }
   }
 
@@ -206,7 +207,7 @@ if (mainPromt === "6") {
   }
 
   if (promoResult.length > 0) {
-    alert(`Дякуємо ${customerName}, ваше замовлення успішно оформлено!\n Сума до сплати: ${promoTotalprice} грн\n\n Статус: замовлення прийнято та чекає підвердження`)
+    alert(`Дякуємо ${customerName}, ваше замовлення успішно оформлено!\n Сума до сплати: ${totalPrice} грн\n\n Статус: замовлення прийнято та чекає підвердження`)
   } else {
     alert(`Дякуємо ${customerName}, ваше замовлення успішно оформлено!\n Сума до сплати: ${totalPrice} грн\n\n Статус: замовлення прийнято та чекає підвердження`)
   }
